@@ -1,6 +1,7 @@
 terraform {
   backend "gcs" {
-    bucket      = "nh-ex-tf-state"
+    #bucket      = "<your-gcs-bucket-name>"
+    bucket      = "dunn-nh-ex-gcs"
     prefix      = "terraform/state"
     credentials = "./tf-gke-keyfile.json"
   }

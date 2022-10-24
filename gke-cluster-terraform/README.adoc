@@ -40,7 +40,7 @@ $ gcloud services enable container.googleapis.com
 
 [source,sh]
 ----
-$ gcloud iam service-accounts create <your-service-account-name>
+$ gcloud iam service-accounts create <your-service-account-name> --display-name=<DISPLAY_NAME>
 ----
 
 === Assign Roles
@@ -85,7 +85,7 @@ Create JSON key file for the service-account that Terraform will use to authenti
 
 [source,sh]
 ----
-$ gcloud iam service-accounts keys create tf-gke-keyfile.json -—iam-account <your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com
+$ gcloud iam service-accounts keys create tf-gke-keyfile.json --iam-account <your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com
 ----
 
 == Terraform
@@ -96,7 +96,7 @@ Create a GCS bucket where to store the Terraform state
 
 [source,sh]
 ----
-$ gsutil mb -p solutionsarchitect-01 -c regional -l europe-west2 gs://<your-gcs-bucket-name>/
+$ gsutil mb -p solutionsarchitect-01 -c regional -l us-west1 gs://<your-gcs-bucket-name>/
 ----
 
 Enable versioning in case of accidental deletion or errors:
@@ -110,12 +110,13 @@ Enable read/write permissions on this bucket for our service account:
 
 [source,sh]
 ----
-$ gsutil iam ch serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com:legacyBucketWriter gs://afaedda-tf-state/
+$ gsutil iam ch serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com:legacyBucketWriter gs://<your-gcs-bucket-name>/
 ----
 
 === Provision Terraform Resources (GKE)
+Cluster and node pool will take roughly 5-10 minutes to provision
 
-[source,sh ]
+[source,sh]
 ----
 $ terraform init
 $ terraform plan

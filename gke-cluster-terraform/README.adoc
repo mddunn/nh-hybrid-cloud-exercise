@@ -1,0 +1,123 @@
+= Create GKE Cluster with Terraform
+
+Statements below utilize homebrew on MacOS
+
+== Installations
+
+=== Install Terraform
+
+[source,sh]
+----
+$ brew install terraform
+
+----
+
+=== Install Google Cloud CLI
+
+Reference: https://cloud.google.com/sdk/docs/install-sdk
+
+[source,sh]
+----
+$ gcloud init
+
+----
+
+Project id: `solutionsarchitect-01`
+
+Region: `&lt; your-gcloud-region &gt;`
+
+== GCloud Setup
+
+=== Enable Compute and Kubernetes APIs
+
+[source,sh]
+----
+$ gcloud services enable compute.googleapis.com
+$ gcloud services enable container.googleapis.com
+----
+
+=== Create service-account for Terraform
+
+[source,sh]
+----
+$ gcloud iam service-accounts create <your-service-account-name>
+----
+
+=== Assign Roles
+
+The service-account needs the following project roles to be able to execute the Terraform configuration and create the GKE cluster: 
+
+* roles/compute.viewer
+* roles/compute.securityAdmin
+* Required if add_cluster_firewall_rules is set to true
+* roles/container.clusterAdmin
+* roles/container.developer
+* roles/iam.serviceAccountAdmin
+* roles/iam.serviceAccountUser
+* roles/resourcemanager.projectIamAdmin (required if - service_account is set to create)
+
+These roles can be assigned to the service account with the following commands:
+
+[source,sh]
+----
+$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --role roles/compute.admin   
+                        
+$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --role roles/iam.serviceAccountUser                             
+
+$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --role roles/resourcemanager.projectIamAdmin                             
+
+$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --role roles/container.clusterAdmin
+
+$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --role roles/compute.viewer
+
+$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --role roles/compute.securityAdmin
+
+$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --role roles/container.developer
+
+$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --role roles/iam.serviceAccountAdmin
+
+$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --role roles/resourcemanager.projectIamAdmin
+----
+
+=== GKE Authentication
+
+Create JSON key file for the service-account that Terraform will use to authenticate with Google Cloud to create the infrastructure. 
+
+[source,sh]
+----
+$ gcloud iam service-accounts keys create tf-gke-keyfile.json -—iam-account <your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com
+----
+
+== Terraform
+
+=== Terraform Backend (GCS)
+
+Create a GCS bucket where to store the Terraform state
+
+[source,sh]
+----
+$ gsutil mb -p solutionsarchitect-01 -c regional -l europe-west2 gs://<your-gcs-bucket-name>/
+----
+
+Enable versioning in case of accidental deletion or errors:
+
+[source,sh]
+----
+$ gsutil versioning set on gs://<your-gcs-bucket-name>/
+----
+
+Enable read/write permissions on this bucket for our service account:
+
+[source,sh]
+----
+$ gsutil iam ch serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com:legacyBucketWriter gs://afaedda-tf-state/
+----
+
+=== Provision Terraform Resources (GKE)
+
+[source,sh ]
+----
+$ terraform init
+$ terraform plan
+$ terraform apply
+----

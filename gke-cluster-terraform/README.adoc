@@ -1,6 +1,6 @@
 = Create GKE Cluster with Terraform
 
-Statements below utilize homebrew on MacOS
+Statements below utilize homebrew on MacOS. Be sure to update the tfvars file with values specific to your setup
 
 == Installations
 

@@ -1,2 +1,3 @@
 **/.terraform
 *keyfile.json
+**/confluent-cloud

@@ -1,0 +1,77 @@
+= Create Postgres Database
+
+== Kubernetes Prep
+Connect to the Kubernetes cluster
+
+[source,sh]
+----
+$ gcloud container clusters get-credentials <cluster name>--region <your-gcloud-region> --project solutionsarchitect-01
+----
+
+Make sure you can see the Kubernetes cluster namespaces
+
+[source,sh]
+----
+$ kubectl get ns
+----
+
+Create a namespace for the Postgres database
+
+[source,sh]
+----
+$ kubectl create ns postgres
+----
+
+.Apply postgres-setup.yaml to create:
+* a ConfigMap with database name, user and password
+* a Persistent Volume to store the database data
+* a Persistent Volume Claim for the deployment to use the PV
+
+[source,sh]
+----
+$ kubectl apply -f postgres-setup.yaml -n postgres
+----
+
+== Create and Populate the Database
+Create the Postgres database and a service for external access
+
+[source,sh]
+----
+$ kubectl apply -f postgres-deployment.yaml -n postgres
+----
+
+=== Create Schema
+
+Connect to the Postgres database and create the schema
+
+[source,sh]
+----
+$ kubectl exec -it <postgres pod> /bin/bash -n postgres
+
+root@<postgres pod>:/# psql -U appuser -p 5432 -d groceries-mp-db
+
+groceries-mp-db=# DROP schema grocery_shop CASCADE;
+
+groceries-mp-db=# CREATE schema grocery_shop;
+----
+
+=== Create Tables and Insert Data
+Apply the statements from the postgres-data.sql file to create the tables and insert test data
+
+Describe the tables:
+[source,sh]
+----
+groceries-mp-db=# \d grocery_shop.customers;
+groceries-mp-db=# \d grocery_shop.orders;
+groceries-mp-db=# \d grocery_shop.products;
+groceries-mp-db=# \d grocery_shop.sellers;
+----
+
+Validate the data:
+[source,sh]
+----
+groceries-mp-db=# select * from grocery_shop.customers;
+groceries-mp-db=# select * from grocery_shop.sellers;
+groceries-mp-db=# select * from grocery_shop.products;
+groceries-mp-db=# select * from grocery_shop.orders;
+----

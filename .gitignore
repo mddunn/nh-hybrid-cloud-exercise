@@ -1,3 +1,5 @@
 **/.terraform
 *keyfile.json
 **/confluent-cloud
+**/cfk
+**/working-dir

@@ -13,7 +13,7 @@ create table if not exists grocery_shop.customers (
     customer_name varchar(40),
     customer_email varchar(40),
     customer_address varchar(60),
-    last_update_time timestamp
+    last_update_time timestamp NOT NULL
 );
 
 create table if not exists grocery_shop.sellers (
@@ -22,7 +22,7 @@ create table if not exists grocery_shop.sellers (
     seller_company varchar(40),
     seller_email varchar(40),
     seller_address varchar(60),
-    last_update_time timestamp
+    last_update_time timestamp NOT NULL
 );
 
 create table if not exists grocery_shop.products (
@@ -31,7 +31,7 @@ create table if not exists grocery_shop.products (
     product_cost money,
     product_quantity int,
     seller_name varchar(40),
-    last_update_time timestamp
+    last_update_time timestamp NOT NULL
 );
 
 create table if not exists grocery_shop.orders (
@@ -42,7 +42,7 @@ create table if not exists grocery_shop.orders (
     order_status grocery_shop.status,
     tracking_number varchar(20),
     create_time timestamp,
-    last_update_time timestamp
+    last_update_time timestamp NOT NULL
 );
 
 -- Insert Customers

@@ -41,3 +41,6 @@ $ terraform init
 $ terraform plan
 $ terraform apply
 ----
+
+=== GCS Bucket
+Use the python script in the stringify-gcp-credentials folder to stringify the JSON key file to use in the GCS sink connector configuration

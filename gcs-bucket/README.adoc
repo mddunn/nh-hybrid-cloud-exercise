@@ -1,0 +1,43 @@
+= Create GCS Bucket with Terraform
+
+Statements below utilize homebrew on MacOS. Be sure to update the tfvars file with values specific to your setup
+
+== Installations
+All prerequisite tools were installed when provisioning the GKE cluster
+
+=== Create service-account for Terraform
+The same service account used for the GKE cluster provisioning should be used for the GCS bucket creation
+
+
+=== Assign Roles
+
+The service-account needs the following project roles to be able to create the GCS bucket:
+
+* roles/storage.admin
+
+These roles can be assigned to the service account with the following commands:
+
+[source,sh]
+----
+$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --role roles/storage.admin
+----
+
+=== GCP Authentication
+
+Use the same key file created for the GKE provisioning
+
+== Terraform
+
+=== Terraform Backend (GCS)
+
+Use the same GCS bucket to store the Terraform state that was used when created the GKE cluster
+
+=== Provision Terraform Resources (GCS)
+Provisioning should be under 1 minute
+
+[source,sh]
+----
+$ terraform init
+$ terraform plan
+$ terraform apply
+----

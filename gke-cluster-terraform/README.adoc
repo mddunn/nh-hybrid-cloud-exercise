@@ -79,7 +79,7 @@ $ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceA
 $ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --role roles/resourcemanager.projectIamAdmin
 ----
 
-=== GKE Authentication
+=== GCP Authentication
 
 Create JSON key file for the service-account that Terraform will use to authenticate with Google Cloud to create the infrastructure. 
 

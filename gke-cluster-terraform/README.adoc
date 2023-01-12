@@ -56,7 +56,7 @@ The service-account needs the following project roles to be able to execute the 
 * roles/iam.serviceAccountUser
 * roles/resourcemanager.projectIamAdmin (required if - service_account is set to create)
 
-These roles can be assigned to the service account with the following commands:
+These roles can be assigned to the service account with the following commands (NOTE: if you get an error running these commands make sure you have rights to create these roles (eg that you are an Owner for the GCP project you're using)):
 
 [source,sh]
 ----
@@ -78,6 +78,8 @@ $ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceA
 
 $ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --role roles/resourcemanager.projectIamAdmin
 ----
+
+If you are asked for a condition you can select 5 - None for this exercise.
 
 === GCP Authentication
 

@@ -60,23 +60,23 @@ These roles can be assigned to the service account with the following commands (
 
 [source,sh]
 ----
-$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --role roles/compute.admin   
+$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --condition=None --role roles/compute.admin   
                         
-$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --role roles/iam.serviceAccountUser                             
+$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --condition=None --role roles/iam.serviceAccountUser                             
 
-$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --role roles/resourcemanager.projectIamAdmin                             
+$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --condition=None --role roles/resourcemanager.projectIamAdmin                             
 
-$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --role roles/container.clusterAdmin
+$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --condition=None --role roles/container.clusterAdmin
 
-$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --role roles/compute.viewer
+$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --condition=None --role roles/compute.viewer
 
-$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --role roles/compute.securityAdmin
+$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --condition=None --role roles/compute.securityAdmin
 
-$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --role roles/container.developer
+$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --condition=None --role roles/container.developer
 
-$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --role roles/iam.serviceAccountAdmin
+$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --condition=None --role roles/iam.serviceAccountAdmin
 
-$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --role roles/resourcemanager.projectIamAdmin
+$ gcloud projects add-iam-policy-binding solutionsarchitect-01 --member serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com --condition=None --role roles/resourcemanager.projectIamAdmin
 ----
 
 If you are asked for a condition you can select 5 - None for this exercise.

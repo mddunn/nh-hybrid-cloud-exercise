@@ -115,6 +115,13 @@ Enable read/write permissions on this bucket for our service account:
 $ gsutil iam ch serviceAccount:<your-service-account-name>@solutionsarchitect-01.iam.gserviceaccount.com:legacyBucketWriter gs://<your-gcs-bucket-name>/
 ----
 
+Edit your main.tf file to set the bucket value as follows (replacing any bucket name currently there):
+
+[source,sh]
+----
+bucket = "<your-gcs-bucket-name>"
+----
+
 === Provision Terraform Resources (GKE)
 Cluster and node pool will take roughly 5-10 minutes to provision
 

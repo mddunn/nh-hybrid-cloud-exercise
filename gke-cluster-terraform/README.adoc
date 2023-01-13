@@ -122,6 +122,8 @@ Edit your main.tf file to set the bucket value as follows (replacing any bucket 
 bucket = "<your-gcs-bucket-name>"
 ----
 
+Edit your terraform.tfvars file to update with the directions in that file (see # comment lines).
+
 === Provision Terraform Resources (GKE)
 Cluster and node pool will take roughly 5-10 minutes to provision
 
